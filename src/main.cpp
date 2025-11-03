@@ -20,6 +20,8 @@
 #include "SYCLStream.h"
 #elif defined(OMP)
 #include "OMPStream.h"
+#elif defined(HIP)
+#include "HIPStream.h"
 #endif
 
 // Default size of 2^25
