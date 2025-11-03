@@ -25,7 +25,10 @@
 #endif
 
 // Default size of 2^25
-unsigned int ARRAY_SIZE = 33554432;
+
+// Use same size as previous CPU streams
+unsigned int ARRAY_SIZE = 80000000;
+                          
 unsigned int num_times = 100;
 unsigned int deviceIndex = 0;
 bool use_float = false;
@@ -87,6 +90,9 @@ void run()
 
 #elif defined(OMP)
   stream = new OMPStream<T>(ARRAY_SIZE, a.data(), b.data(), c.data(), deviceIndex);
+
+#elif defined(HIP)
+  stream = new HIPStream<T>(ARRAY_SIZE, deviceIndex);
 
 #endif
 
