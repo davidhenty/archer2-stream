@@ -11,3 +11,4 @@
 # Launch the parallel job
 
 srun --ntasks=1 --cpus-per-task=1 --unbuffered ./hip-stream
+#srun --ntasks=1 --cpus-per-task=1 --unbuffered ./omp-stream

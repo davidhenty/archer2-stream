@@ -10,6 +10,7 @@ OMPStream<T>::OMPStream(const unsigned int ARRAY_SIZE, T *a, T *b, T *c, int dev
   array_size = ARRAY_SIZE;
 
 #ifdef OMP_TARGET_GPU
+  std::cout << "Using OMP device " << device << std::endl;
   omp_set_default_device(device);
   this->a = a;
   this->b = b;
