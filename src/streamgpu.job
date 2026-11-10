@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Slurm job options (name, compute nodes, job time)
-# This is setup to run in reserved queue for m25oc users on 7th Nov
-# Outside of this time or project use your own budget
+# This is setup to run in reserved queue for MSc users on 11th Nov
+# Outside of this time or project use the default budget
 
 #SBATCH --qos=reservation
-#SBATCH --reservation=Q2881821
+#SBATCH --reservation=m26oc-practical_Q3115772
+#SBATCH --account=m26oc-practical
 
-# Use below if not in m25oc or outside of lab: change account as required
-# #SBATCH --qos=gpu-shd
-# #SBATCH --account=m25oc-s1234567
+# Use below if outside of lab
+## SBATCH --qos=gpu-shd
 
 # Leave these options unchanged
 
@@ -19,7 +19,18 @@
 #SBATCH --output=%x-%j.out
 #SBATCH --gpus=1
 
+module load rocm
+module load craype-accel-amd-gfx90a
+module load craype-x86-milan
+
+make -f HIP.make clean
+make -f HIP.make
+
 # Launch the parallel job
 
 srun --ntasks=1 --cpus-per-task=1 --unbuffered ./hip-stream
-#srun --ntasks=1 --cpus-per-task=1 --unbuffered ./omp-stream
+
+# make -f OpenMP.make clean
+# make -f OpenMP.make
+# 
+# srun --ntasks=1 --cpus-per-task=1 --unbuffered ./omp-stream
